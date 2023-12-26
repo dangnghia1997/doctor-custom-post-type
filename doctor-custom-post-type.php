@@ -59,7 +59,7 @@ function custom_post_type_doctor() {
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => 2,
-		'supports'           => array( 'title', 'editor', 'thumbnail' ),
+		'supports'           => array( 'title', 'thumbnail' ),
 		'menu_icon'          => 'dashicons-groups',
 		'show_in_graphql' => true,
 		'graphql_single_name' => 'doctor',
@@ -107,3 +107,16 @@ function custom_taxonomy_specialty() {
 }
 add_action( 'init', 'custom_taxonomy_specialty' );
 
+
+
+function translate_doctor_acf_field_name($field) {
+	if ($field['_name'] === 'bio') {
+		$field['label'] = __('Bio', 'doctor-cpt');
+	}
+
+	if ($field['_name'] === 'phone') {
+		$field['label'] = __('Phone', 'doctor-cpt');
+	}
+	return $field;
+}
+add_filter('acf/prepare_field', 'translate_doctor_acf_field_name');
